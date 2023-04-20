@@ -1,31 +1,41 @@
-import React, { Component, useState } from "react";
-import "../styles/App.css";
+import React,{Component} from 'react'
+import '../styles/App.css';
+class DigitalClock extends Component {
+  state = {
+    time: new Date()
+  };
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date()
-    };
-  }
   componentDidMount() {
     this.timerID = setInterval(() => this.tick(), 1000);
   }
+
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
+
   tick() {
     this.setState({
-      date: new Date()
+      time: new Date()
     });
   }
+
   render() {
+    const { time } = this.state;
     return (
-      <div className="Clock">
-        <h3 id="time">{this.state.date.toLocaleTimeString()}</h3>
-      </div>
+      <div>{time.toLocaleString()}</div>
     );
   }
 }
+const App = () => {
+
+  return (
+    <div id="main">
+      <div className="date-time">
+      <DigitalClock />
+      </div>
+    </div>
+  )
+}
+
 
 export default App;
